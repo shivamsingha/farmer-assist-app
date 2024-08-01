@@ -7,10 +7,8 @@ const SensorsPage = () => {
   return (
     <ScrollView className="bg-white">
       <View
-        className={`pt-[${Math.max(
-          insets.top,
-          16
-        )}px] p-4 bg-[#a4c389] rounded-b-3xl`}
+        className="p-4 bg-[#a4c389] rounded-b-3xl"
+        style={{ paddingTop: Math.max(insets.top, 16) }}
       >
         <View className="flex-row justify-between mb-2">
           <TouchableOpacity>
@@ -32,9 +30,6 @@ const SensorsPage = () => {
       <View className="p-4">
         <View className="flex-row justify-between items-center mb-4">
           <Text className="text-lg font-semibold">Soil Parameters</Text>
-          <TouchableOpacity className="flex-row items-center">
-            <Text className="text-red-500 mr-1">NDVI ▼</Text>
-          </TouchableOpacity>
         </View>
 
         <View className="flex-row flex-wrap justify-between">

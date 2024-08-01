@@ -19,7 +19,7 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   return (
     <ScrollView>
-      <View className={`px-4 pt-[${Math.max(insets.top, 16)}px]`}>
+      <View className="px-4" style={{ paddingTop: Math.max(insets.top, 16) }}>
         <View className="flex-row justify-between items-center">
           <View className="flex-row items-center">
             <Image
