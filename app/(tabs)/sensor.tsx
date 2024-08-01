@@ -1,79 +1,113 @@
-import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
+import React from "react";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-
-interface StatItemProps {
-    icon: React.ReactNode;
-    percentage: string;
-    label: string;
-}
-
-const StatItem: React.FC<StatItemProps> = ({ icon, percentage, label }) => (
-    <View style={{ alignItems: 'center', flex: 1 }}>
-        {icon}
-        <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 8 }}>{percentage}</Text>
-        <Text style={{ fontSize: 12, color: 'gray', textAlign: 'center' }}>
-            {percentage !== '0%' ? 'of reference value' : 'of reference value'}
+const SensorsPage = () => {
+  const insets = useSafeAreaInsets();
+  return (
+    <ScrollView className="bg-white">
+      <View
+        className={`pt-[${Math.max(
+          insets.top,
+          16
+        )}px] p-4 bg-[#a4c389] rounded-b-3xl`}
+      >
+        <View className="flex-row justify-between mb-2">
+          <TouchableOpacity>
+            <Text className="text-white text-2xl">...</Text>
+          </TouchableOpacity>
+          <TouchableOpacity>
+            <Text className="text-white text-2xl">+</Text>
+          </TouchableOpacity>
+        </View>
+        <Text className="text-white text-3xl font-bold mb-1">Sensors</Text>
+        <Text className="text-white text-sm mb-4">
+          50°05'32.7"N 20°06'26.8"E
         </Text>
-        <Text style={{ fontSize: 12, textAlign: 'center', marginTop: 4 }}>{label}</Text>
-    </View>
-);
+        <View className="bg-red-500 self-start rounded-full px-3 py-1 mb-4">
+          <Text className="text-white font-bold">Connected</Text>
+        </View>
+      </View>
 
-interface NavItemProps {
-    icon: keyof typeof Feather.glyphMap;
-    label: string;
-    active?: boolean;
-}
+      <View className="p-4">
+        <View className="flex-row justify-between items-center mb-4">
+          <Text className="text-lg font-semibold">Soil Parameters</Text>
+          <TouchableOpacity className="flex-row items-center">
+            <Text className="text-red-500 mr-1">NDVI ▼</Text>
+          </TouchableOpacity>
+        </View>
 
-const NavItem: React.FC<NavItemProps> = ({ icon, label, active }) => (
-    <TouchableOpacity style={{ alignItems: 'center' }}>
-        <Feather name={icon} size={24} color={active ? "#3b82f6" : "gray"} />
-        <Text style={{ color: active ? "#3b82f6" : "gray" }}>{label}</Text>
-    </TouchableOpacity>
-);
-
-const data = [
-    { icon: <MaterialCommunityIcons name="leaf" size={24} color="#22c55e" />, percentage: "40%", label: "Plant's health" },
-    { icon: <MaterialCommunityIcons name="water" size={24} color="#3b82f6" />, percentage: "72%", label: "Water depth" },
-    { icon: <Feather name="sun" size={24} color="#eab308" />, percentage: "53%", label: "Photosynthesis" },
-    { icon: <MaterialCommunityIcons name="tractor" size={24} color="#f97316" />, percentage: "28%", label: "Soil Respiration" },
-    { icon: <MaterialCommunityIcons name="rabbit" size={24} color="#ec4899" />, percentage: "0%", label: "" }
-];
-
-const MeadowStatsPage: React.FC = () => {
-    return (
-        <>
-            <SafeAreaView style={{ flex: 1 }}>
-                <StatusBar style="light" />
-                <View style={{ backgroundColor: '#34D399', paddingTop: 8, paddingBottom: 48, paddingHorizontal: 16 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                        <Feather name="more-horizontal" size={24} color="white" />
-                        <Feather name="plus" size={24} color="white" />
-                    </View>
-                    <Text style={{ color: 'white', fontSize: 24, fontWeight: 'bold' }}>Long Meadow</Text>
-                    <Text style={{ color: 'white', fontSize: 14, marginBottom: 16 }}>50°05'32.7"N 20°06'26.8"E</Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <View style={{ backgroundColor: '#EF4444', borderRadius: 999, paddingHorizontal: 12, paddingVertical: 4, marginRight: 8 }}>
-                            <Text style={{ color: 'white', fontWeight: 'bold' }}>LIVE</Text>
-                        </View>
-                        <View style={{ width: 32, height: 4, backgroundColor: 'white', borderRadius: 999 }} />
-                        <Feather name="chevron-right" size={20} color="white" />
-                    </View>
-                </View>
-                <View style={{ backgroundColor: 'white', borderTopLeftRadius: 24, borderTopRightRadius: 24, marginTop: -32, paddingTop: 16, paddingHorizontal: 16, flex: 1 }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Vegetations index</Text>
-                        <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={{ marginRight: 4, fontWeight: '600', color: '#3b82f6' }}>NDVI</Text>
-                            <Feather name="chevron-down" size={20} color="#3b82f6" />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </SafeAreaView>
-        </>
-    );
+        <View className="flex-row flex-wrap justify-between">
+          {[
+            {
+              icon: "🌿",
+              color: "bg-[#c8e6c9]",
+              title: "Plant's health",
+              value: "40%",
+            },
+            {
+              icon: "💧",
+              color: "bg-[#e3f2fd]",
+              title: "Water depth",
+              value: "72%",
+            },
+            {
+              icon: "☀️",
+              color: "bg-[#fff3e0]",
+              title: "Photosynthesis",
+              value: "53%",
+            },
+            {
+              icon: "🚜",
+              color: "bg-[#ffe0b2]",
+              title: "Soil Respiration",
+              value: "28%",
+            },
+            {
+              icon: "🐰",
+              color: "bg-[#f8bbd0]",
+              title: "Nitrogen",
+              value: "1",
+            },
+            {
+              icon: "🐰",
+              color: "bg-[#c8e6c9]",
+              title: "Phosporous",
+              value: "2",
+            },
+            {
+              icon: "🐰",
+              color: "bg-[#e3f2fd]",
+              title: "Potassium",
+              value: "3",
+            },
+            { icon: "🐰", color: "bg-[#fff3e0]", title: "EC", value: "4" },
+            { icon: "🐰", color: "bg-[#ffe0b2]", title: "pH", value: "7" },
+            {
+              icon: "🐰",
+              color: "bg-[#f8bbd0]",
+              title: "Moisture",
+              value: "30%",
+            },
+          ].map((item, index) => (
+            <View
+              key={index}
+              className={`${item.color} rounded-2xl p-4 mb-4 w-[48%] h-32 justify-between`}
+            >
+              <Text className="text-2xl">{item.icon}</Text>
+              <View>
+                <Text className="text-2xl font-bold">{item.value}</Text>
+                <Text className="text-xs text-gray-600">
+                  of reference value
+                </Text>
+                <Text className="text-sm">{item.title}</Text>
+              </View>
+            </View>
+          ))}
+        </View>
+      </View>
+    </ScrollView>
+  );
 };
 
-export default MeadowStatsPage;
+export default SensorsPage;
